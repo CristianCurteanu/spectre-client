@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+  - 2.2.3
+services:
+  - postgresql
+
+before_script:
+  - rails db:create db:migrate
+
+install:
+  bundle install
+
+addons:
+  postgresql: "9.4"
