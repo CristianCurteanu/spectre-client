@@ -38,6 +38,7 @@ gem 'devise'
 gem 'faker'
 gem 'materialize-sass'
 gem 'slim-rails'
+gem 'dish'
 
 group :test do
   gem 'airborne'

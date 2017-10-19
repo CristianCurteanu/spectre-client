@@ -18,7 +18,7 @@ describe Spectre::API do
   let(:spectre) do
     described_class.new client_id:      'CLIENT_ID',
                         service_secret: 'SERVICE_SECRET',
-                        private_key:    File.open(Rails.root.join('spec', 'fixtures', 'rspec_pem.txt')),
+                        private_pem_path:    ['spec', 'fixtures', 'rspec_pem.txt'],
                         api_url:        api_url
   end
 
@@ -52,8 +52,11 @@ describe Spectre::API do
       response = spectre.get('countries')
 
       expect(response).not_to be nil
-      expect(response).to be_an_instance_of(RestClient::Response)
-      expect(response.body).to eql data
+      expect(response).to be_an_instance_of(Spectre::ResponseDecorator)
+      verify = JSON.parse(data)['data'].first
+      expect(response.data.first.code).to eql verify['code']
+      expect(response.data.first.name).to eql verify['name']
+      expect(response.data.first.refresh_start_time).to eql verify['refresh_start_time']
     end
   end
 
@@ -70,11 +73,11 @@ describe Spectre::API do
       }
 
       stub_request(:post, url)
-        .with(headers).to_return(status: 201, body: 'OK')
+        .with(headers).to_return(status: 201, body: { data: {created: 'OK'}}.to_json)
 
       response = spectre.post('logins', params)
-      expect(response.code).to eql 201
-      expect(response.body).to eql 'OK'
+      expect(response.status).to eql 201
+      expect(response.data.created).to eql 'OK'
     end
   end
 end

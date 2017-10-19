@@ -9,6 +9,16 @@
   </head>
 
   <body>
-    <%= yield %>
+
+    <% if current_user %>
+      <%= render 'partials/navbar' %>
+      <%= render 'partials/sidebar' %>
+      <div class="container">
+        <%= yield %>
+      </div>
+      <%= render 'partials/footer' %>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
