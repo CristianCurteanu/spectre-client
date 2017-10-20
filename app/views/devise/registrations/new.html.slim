@@ -3,23 +3,33 @@
     | Sign up
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
     = devise_error_messages!
-    .field
-      = f.label :email
-      br
-      = f.email_field :email, autofocus: true
-    .field
-      = f.label :password
-      - if @minimum_password_length
-        em
-          | (
-          = @minimum_password_length
-          |  characters minimum)
-      br
-      = f.password_field :password, autocomplete: "off"
-    .field
-      = f.label :password_confirmation
-      br
-      = f.password_field :password_confirmation, autocomplete: "off"
+    .fieldset
+      .field
+        = f.label :client_id
+        br
+        = f.text_field :client_id
+      .field
+        = f.label :service_secret
+        br
+        = f.text_field :service_secret
+    .fieldset
+      .field
+        = f.label :email
+        br
+        = f.email_field :email, autofocus: true
+      .field
+        = f.label :password
+        - if @minimum_password_length
+          em
+            | (
+            = @minimum_password_length
+            |  characters minimum)
+        br
+        = f.password_field :password, autocomplete: "off"
+      .field
+        = f.label :password_confirmation
+        br
+        = f.password_field :password_confirmation, autocomplete: "off"
     .actions
       = f.submit "Sign up", class: 'btn waves-effect waves-light'
   = render "devise/shared/links"

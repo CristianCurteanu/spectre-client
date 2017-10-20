@@ -1,0 +1,8 @@
+ul#slide-out.side-nav
+  li
+    .user-view
+      = @client.settings.email
+  li
+    = link_to 'Dashboard', root_path
+  li
+    = link_to 'Logout', destroy_user_session_path, method: :delete
