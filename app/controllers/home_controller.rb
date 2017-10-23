@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  include SpectreAPI
+  before_action :create_customer
 
   def index
     @client ||= spectre.get('client/info').data

@@ -1,1 +1,10 @@
 h3 Dashboard
+
+.row
+  table.centered
+    tbody
+      tr
+        td
+          = link_to "#{@client.customers.total} Customers", customers_index_path
+        td
+          = link_to "#{@client.logins.total} Logins", '/'

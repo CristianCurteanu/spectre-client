@@ -282,7 +282,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 3.0)
   rails (~> 5.0.6)
-  rspec-rails
+  rspec-rails (~> 3.0)
   rubocop
   sass-rails (~> 5.0)
   shoulda

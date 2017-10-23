@@ -1,0 +1,19 @@
+.row
+  h3 = "Customer ##{@customer.id}"
+
+.row
+  = link_to 'Logins', '#', class: 'btn btn-flat'
+  '&nbsp
+  = link_to 'Delete', '#', class: 'btn red darken-3'
+
+.row
+  table.striped.highlight.bordered
+    tr
+      td = "ID"
+      td = @customer.id
+    tr
+      td = "Identifier"
+      td = @customer.identifier
+    tr
+      td = "Secret"
+      td = @customer.secret

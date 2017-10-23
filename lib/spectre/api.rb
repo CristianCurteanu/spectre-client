@@ -58,6 +58,8 @@ module Spectre
         params:     params.empty? ? '' : params.to_json
       }
       ResponseDecorator.new RestClient::Request.execute request_data
+    rescue RestClient::BadRequest
+      false
     end
 
     def request_data
