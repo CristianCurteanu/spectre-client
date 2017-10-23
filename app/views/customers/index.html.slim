@@ -1,0 +1,17 @@
+h3 Customers
+
+.row
+  .fixed-action-btn
+    = link_to content_tag(:i, 'add', class: 'material-icons'), customers_new_path, class: 'btn-floating btn-large btn'
+
+.row
+  table.striped
+    thead
+      tr
+        th = "Identifier"
+        th = "Actions"
+    tbody
+      - @customers.each do |customer|
+        tr
+          td = link_to customer.identifier, customers_show_path(customer.id)
+          td = link_to content_tag(:i, 'delete_forever', class: 'material-icons red-text text-darken-4'), '#'

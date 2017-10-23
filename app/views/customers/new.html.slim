@@ -1,0 +1,12 @@
+h3 Add new customer
+
+= form_for @customer, url: customers_create_path do |f|
+  = f.label :identifier, 'Customer identifier'
+  - if @customer.errors.blank?
+    = f.text_field :identifier
+  - else
+    = f.text_field :identifier, placeholder: ['Identifier', @customer.errors[:identifier]].join(' '),
+                                class: "#{'invalid' unless @customer.errors[:identifier].blank?}"
+
+
+  = f.submit 'Add customer', class: 'btn waves-effect waves-light grey darken-1'
