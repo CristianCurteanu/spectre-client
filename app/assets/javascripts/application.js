@@ -14,3 +14,7 @@
 //= require jquery_ujs
 //= require materialize
 //= require_tree .
+
+$(document).ready(function() {
+  $('.select2-input').select2()
+})

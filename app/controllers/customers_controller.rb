@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CustomersController < ApplicationController
   before_action :create_customer, except: :new
 
@@ -20,6 +22,14 @@ class CustomersController < ApplicationController
       redirect_to root_path
     else
       render :new
+    end
+  end
+
+  def destroy
+    if spectre.delete("customers/#{params[:id]}").data.deleted
+      redirect_to customers_index_path
+    else
+      redirect_to customers_show_path(params[:id])
     end
   end
 

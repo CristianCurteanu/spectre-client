@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -6,6 +8,6 @@ class User < ApplicationRecord
 
   def added_new_customer
     self.created_customer = true
-    self.save!
+    save!
   end
 end

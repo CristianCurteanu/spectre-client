@@ -1,0 +1,36 @@
+.row
+  h4 = "Account ##{@account.id}"
+
+.row
+  table.striped.highlight.bordered
+    tr
+      td = 'ID'
+      td.right-align
+        = @account.id
+    tr
+      td = 'Name'
+      td.right-align
+        = @account.name
+    tr
+      td = 'Balance'
+      td.right-align
+        = @account.balance
+    tr
+      td = 'Currency'
+      td.right-align
+        = @account.currency
+    tr
+      td = 'Nature'
+      td.right-align
+        = @account.nature
+    tr
+      td = 'Details'
+      td
+        div.right-align
+          - @account.extra.to_h.each do |key, value|
+            div.left-align
+              = "<strong>#{key}:</strong> #{value.to_s.gsub('=>', ': ').gsub(/[{}]/, '')}".html_safe
+    tr
+      td = 'Created at'
+      td.right-align
+        = @account.created_at

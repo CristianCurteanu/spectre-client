@@ -1,0 +1,30 @@
+.row
+  h3 = "Login ##{@login.id}"
+
+.row
+  table.striped.highlight.bordered
+    tr
+      td = 'ID'
+      td.right-align
+       = @login.id
+    tr
+      td = 'Secret'
+      td.right-align
+       = @login.secret
+    tr
+      td = 'Customer identifier'
+      td.right-align
+       = link_to @customer.identifier, customers_show_path(@customer.id)
+    tr
+      td = 'Status'
+      td.right-align
+        span.new.badge.blue.darken-1
+          = @login.status.capitalize!
+    tr
+      td = 'Accounts'
+      td.right-align
+       = link_to @accounts.count, accounts_index_path(@login.id)
+    tr
+      td = 'Transactions'
+      td.right-align
+       = link_to @transactions_count, transactions_index_path(login_id: @login.id)

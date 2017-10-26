@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :pem do
   desc 'Generate a OpenSSL pem file'
   task create: :environment do

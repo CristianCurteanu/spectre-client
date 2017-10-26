@@ -1,0 +1,20 @@
+h3 Add new login
+
+= form_tag logins_create_path do
+  = label_tag 'login_customer_id', 'Customer'
+  = select_tag 'login[customer_id]', options_for_select(@customers.collect { |c| [c.identifier, c.id] }), class: 'select2-input'
+
+  = label_tag 'login_country_code', 'Country'
+  = select_tag 'login[country_code]', options_for_select(@countries.collect { |c| [c.name, c.code] }), class: 'select2-input'
+
+  = label_tag 'login_provider_code', 'Provider'
+  = select_tag 'login[provider_code]', options_for_select(@providers.collect { |p| [p.name, p.code] }), class: 'select2-input'
+
+  / TODO: Change to a dynamic field generation depending on providers' required fields with JS
+  = label_tag 'login_credentials_login', 'Username'
+  = text_field_tag 'login[credentials][login]'
+
+  = label_tag 'login_credentials_password', 'Password'
+  = password_field_tag 'login[credentials][password]'
+
+  = submit_tag 'Create', class: 'btn waves-effect waves-light grey darken-1'

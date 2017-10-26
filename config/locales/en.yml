@@ -20,4 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  logins:
+    refresh:
+      messages:
+        success: 'Refresh successfull'
+        error: 'Something went wrong during login refresh'
+    destroy:
+      messages:
+        success: 'Connection have been removed'
+        error: 'Something went wrong during connection removal'
+

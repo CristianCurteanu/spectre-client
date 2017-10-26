@@ -1,0 +1,13 @@
+.row
+  h4 = "Update connection ##{@login.id}"
+
+.row
+  = form_tag logins_update_path do
+    = hidden_field_tag 'reconnect[login_id]', @login.id
+    = hidden_field_tag 'reconnect[provider_code]', @login.provider_code
+    - @fields.each do |field|
+      = content_tag :label, field.localized_name, for: "reconnect_#{field.name}"
+      = content_tag :input, nil, name: "reconnect[#{field.name}]",
+                                 type: "#{field.nature}",
+                                 id:   "reconnect_#{field.name}"
+    = submit_tag 'Update', class: 'btn waves-effect waves-light grey darken-1'
