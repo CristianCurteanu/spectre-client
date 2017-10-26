@@ -1,0 +1,23 @@
+.row
+  h5 = "Transactions"
+
+.row
+  table.striped
+    thead
+      tr
+        td = '#'
+        td = 'ID'
+        td = 'Category'
+        td = 'Description'
+        td = 'Amount'
+        td = 'Date'
+    tbody
+      - @transactions.each_with_index do |transaction, index|
+        tr
+          td
+            strong = index + 1
+          td = transaction.account_id
+          td = transaction.category
+          td = transaction.description
+          td = "#{transaction.amount} #{transaction.currency_code}"
+          td = transaction.made_on

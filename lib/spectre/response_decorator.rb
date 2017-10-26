@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Spectre
   class ResponseDecorator
     def initialize(object)
@@ -5,11 +7,15 @@ module Spectre
     end
 
     def status
-      @object.code
+      @object.status
     end
 
     def data
-      Dish(JSON.parse(@object.body)['data'])
+      body.data
+    end
+
+    def body
+      @body ||= Dish(JSON.parse(@object.body))
     end
 
     def headers

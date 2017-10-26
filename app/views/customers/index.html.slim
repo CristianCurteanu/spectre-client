@@ -14,4 +14,6 @@ h3 Customers
       - @customers.each do |customer|
         tr
           td = link_to customer.identifier, customers_show_path(customer.id)
-          td = link_to content_tag(:i, 'delete_forever', class: 'material-icons red-text text-darken-4'), '#'
+          td = link_to content_tag(:i, 'delete_forever',
+                       class: 'material-icons red-text text-darken-4'),
+                       customers_delete_path(customer.id)

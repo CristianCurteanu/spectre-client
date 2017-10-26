@@ -2,9 +2,9 @@
   h3 = "Customer ##{@customer.id}"
 
 .row
-  = link_to 'Logins', '#', class: 'btn btn-flat'
+  = link_to 'Logins', logins_index_path(customer_id: @customer.id), class: 'btn btn-flat'
   '&nbsp
-  = link_to 'Delete', '#', class: 'btn red darken-3'
+  = link_to 'Delete', customers_delete_path(@customer.id), class: 'btn red darken-3'
 
 .row
   table.striped.highlight.bordered

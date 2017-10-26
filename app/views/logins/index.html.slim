@@ -1,0 +1,36 @@
+h3 Logins
+
+.row
+  .fixed-action-btn
+    = link_to content_tag(:i, 'add', class: 'material-icons'), logins_new_path, class: 'btn-floating btn-large btn'
+
+.row
+  table.striped
+    thead
+      tr
+        td = "ID"
+        td = "Customer ID"
+        td = "Customer identifier"
+        td = "Status"
+        td = "Actions"
+    tbody
+      - @logins.each do |login|
+        tr
+          td = link_to login.id, logins_show_path(login.id)
+          td = customer(login.customer_id).id
+          td = customer(login.customer_id).identifier
+          td = login.status
+          td
+            = link_to content_tag(:i, 'refresh',
+                      class: 'material-icons amber-text lighten-3'),
+                      logins_refresh_path(login.id),
+                      method: :put
+
+            = link_to content_tag(:i, 'sync',
+                      class: 'material-icons green-text lighten-3'),
+                      logins_reconnect_path(login.id)
+
+            = link_to content_tag(:i, 'delete_forever',
+                      class: 'material-icons red-text text-darken-4'), logins_destroy_path(login.id)
+
+

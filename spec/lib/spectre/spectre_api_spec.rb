@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Spectre::API do
@@ -8,18 +10,18 @@ describe Spectre::API do
   let(:headers) do
     {
       headers: {
-        'Accept' => 'application/json',
-        'Client-id' => 'CLIENT_ID',
+        'Accept'         => 'application/json',
+        'Client-id'      => 'CLIENT_ID',
         'Service-secret' => 'SERVICE_SECRET'
       }
     }
   end
 
   let(:spectre) do
-    described_class.new client_id:      'CLIENT_ID',
-                        service_secret: 'SERVICE_SECRET',
-                        private_pem_path:    ['spec', 'fixtures', 'rspec_pem.txt'],
-                        api_url:        api_url
+    described_class.new client_id:        'CLIENT_ID',
+                        service_secret:   'SERVICE_SECRET',
+                        private_pem_path: 'spec/fixtures/rspec_pem.txt',
+                        api_url:          api_url
   end
 
   context '#new' do
@@ -39,15 +41,15 @@ describe Spectre::API do
       data = {
         data: [
           {
-            code: 'CZ',
-            name: 'Czech Republic',
+            code:               'CZ',
+            name:               'Czech Republic',
             refresh_start_time: 2
           }
         ]
       }.to_json
 
-      stub_request(:get, url)
-        .with(headers).to_return(status: 200, body: data)
+      stub_request(:get, url).
+        with(headers).to_return(status: 200, body: data)
 
       response = spectre.get('countries')
 
@@ -72,8 +74,8 @@ describe Spectre::API do
         data: 'random'
       }
 
-      stub_request(:post, url)
-        .with(headers).to_return(status: 201, body: { data: {created: 'OK'}}.to_json)
+      stub_request(:post, url).
+        with(headers).to_return(status: 201, body: { data: { created: 'OK' } }.to_json)
 
       response = spectre.post('logins', params)
       expect(response.status).to eql 201

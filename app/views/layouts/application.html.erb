@@ -12,6 +12,7 @@
 
     <% if current_user %>
       <%= render 'partials/navbar' %>
+      <%= render 'partials/flashes' %>
       <%= render 'partials/sidebar' %>
       <div class="container">
         <%= yield %>

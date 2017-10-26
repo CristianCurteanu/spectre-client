@@ -1,5 +1,6 @@
-class RegistrationsController < Devise::RegistrationsController
+# frozen_string_literal: true
 
+class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
@@ -11,12 +12,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def valid_params
-    %i(client_id service_secret email password password_confirmation)
+    %i[client_id service_secret email password password_confirmation]
   end
 
   protected
 
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     user_dashboard_path
   end
 end

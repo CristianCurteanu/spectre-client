@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -35,10 +37,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
+gem 'dish'
 gem 'faker'
+gem 'faraday'
 gem 'materialize-sass'
 gem 'slim-rails'
-gem 'dish'
 
 group :test do
   gem 'airborne'
