@@ -16,7 +16,7 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.new(customer_params.merge!(current_user: current_user))
+    @customer = Customer.new(customer_params)
     if @customer.create
       current_user.added_new_customer
       redirect_to root_path

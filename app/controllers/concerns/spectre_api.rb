@@ -4,9 +4,8 @@ module SpectreAPI
   extend ActiveSupport::Concern
 
   def spectre
-    return unless current_user
-    @spectre ||= Spectre::API.new client_id:        current_user.client_id,
-                                  service_secret:   current_user.service_secret,
+    @spectre ||= Spectre::API.new client_id:        'ZQQYsUaQUhIXZvuf0_tK0A',
+                                  service_secret:   '4smHNZzWpmjx3P-pLmWS6Pvd82j7_9VBwiIyA-1pL9Y',
                                   private_pem_path: 'private.pem',
                                   api_url:          'https://www.saltedge.com/api/v3'
   end

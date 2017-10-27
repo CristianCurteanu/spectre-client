@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class RegistrationsController < Devise::RegistrationsController
+  include SpectreAPI
+
+  def create
+    super do |resource|
+      Customer.new(identifier: resource.email).create
+      resource.added_new_customer
+    end
+  end
+
   private
 
   def sign_up_params
@@ -18,6 +27,6 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(_resource)
-    user_dashboard_path
+    root_path
   end
 end
