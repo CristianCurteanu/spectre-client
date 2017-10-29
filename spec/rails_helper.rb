@@ -8,8 +8,12 @@ require File.expand_path('../../config/environment', __FILE__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'model_generators'
+require 'api_helpers'
 require 'webmock/rspec'
+require 'sessions_helper'
+require 'simplecov'
 
+SimpleCov.start
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
@@ -31,4 +35,7 @@ RSpec.configure do |config|
 
   config.filter_rails_from_backtrace!
   config.include ModelGenerators
+  config.include ApiHelpers
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include SessionsHelper
 end

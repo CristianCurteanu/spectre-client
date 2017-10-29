@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class TransactionsController < ApplicationController
   def index
     key = params.except(:controller, :action).keys.first
     @transactions = if key.present?
-                      self.send("sort_by_#{key.gsub('_id', '')}")
+                      send("sort_by_#{key.gsub('_id', '')}")
                     else
                       spectre.get('transactions').data
                     end
@@ -15,9 +17,10 @@ class TransactionsController < ApplicationController
     accounts = spectre.get('accounts').data.select do |acc|
       acc.login_id == params['login_id'].to_i
     end
-    accounts.each_with_object([]) do |account, result|
+    filtered_accounts = accounts.each_with_object([]) do |account, result|
       result << transactions.select { |t| t.account_id == account.id }
-    end.flatten!
+    end
+    filtered_accounts.flatten!
   end
 
   def sort_by_account

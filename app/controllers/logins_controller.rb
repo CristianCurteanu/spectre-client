@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class LoginsController < ApplicationController
-  helper_method :customer, :accounts
+  before_action :create_customer
+  helper_method :accounts
 
   def new
     @countries ||= spectre.get('countries').data
@@ -23,9 +24,7 @@ class LoginsController < ApplicationController
   def show
     @login    ||= spectre.get("logins/#{params[:id]}").data
     @customer ||= spectre.get("customers/#{@login.customer_id}").data
-    @transactions_count = accounts.each_with_object([]) do |account, result|
-      result << transactions_for(account)
-    end.sum
+    @transactions_count ||= transactions_counting.sum
   end
 
   def create
@@ -39,7 +38,7 @@ class LoginsController < ApplicationController
   def refresh
     type = spectre.put("logins/#{params[:id]}/refresh").status == 200 ? :success : :error
     flash[type] = t("logins.refresh.messages.#{type}")
-    redirect_to :back
+    redirect_back fallback_location: logins_index_path
   end
 
   def reconnect
@@ -49,39 +48,41 @@ class LoginsController < ApplicationController
   end
 
   def submit_reconnect
-    body = { data: { credentials: reconnect_params.except(:login_id).to_h } }
-    update = spectre.put("logins/#{params[:reconnect][:login_id]}/reconnect", body)
-    if update.status == 200
-      flash[:success] = 'Customer is reconnected'
-      redirect_to logins_index_path
-    else
-      flash[:error] = update.body.error_message
-      redirect_to :back
-    end
+    submit = SubmitReconnect.new(params: reconnect_params, spectre: spectre)
+    flash[submit.type] = submit.message
+    redirect_to({ success: logins_index_path,
+                  error:   logins_reconnect_path(reconnect_params[:login_id]) }[submit.type])
   end
 
   def destroy
-    type = spectre.delete("logins/#{params[:id]}").data.removed ? :success : :error
+    type = spectre.delete("logins/#{params[:id]}").data.try(:removed) ? :success : :error
     flash[type] = t("logins.destroy.messages.#{type}")
-    redirect_to :back
+    redirect_back fallback_location: logins_index_path
   end
 
   private
 
-  # TODO: refactor to a faster way
-  def customer(id)
-    @customers.find { |c| c.id == id }
-  end
-
   def login_params
-    credentials = params.require(:login).require(:credentials)
     params.require(:login).permit(:customer_id, :country_code, :provider_code, :credentials).
-      merge!(credentials: credentials.permit(credentials.keys))
+      merge!(credentials: login_credentials.permit(login_credentials.keys))
   end
 
   def reconnect_params
-    fields = spectre.get("providers/#{params[:reconnect][:provider_code]}").data.
-             required_fields.each_with_object([]) { |el, result| result << el.name }
-    params.require(:reconnect).permit([:login_id].push(fields).flatten)
+    params.require(:reconnect).permit([:login_id].push(provider_fields).flatten)
+  end
+
+  def provider_fields
+    @provider_fields ||= spectre.get("providers/#{params[:reconnect][:provider_code]}").data.
+                         required_fields.each_with_object([]) { |el, result| result << el.name }
+  end
+
+  def login_credentials
+    @login_credentials ||= params.require(:login).require(:credentials)
+  end
+
+  def transactions_counting
+    @transactions_counting ||= accounts.each_with_object([]) do |account, result|
+      result << transactions_for(account)
+    end
   end
 end

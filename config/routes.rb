@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   end
 
   namespace :transactions do
-    # get 'index/:account_id', action: :index, as: :index
     get :index
   end
 

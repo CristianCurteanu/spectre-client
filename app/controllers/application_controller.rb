@@ -2,9 +2,14 @@
 
 class ApplicationController < ActionController::Base
   include SpectreAPI
+  include CustomersHelper
 
   before_action :authenticate_user!
   protect_from_forgery with: :exception
+
+  rescue_from NoMethodError do
+    render 'exceptions/application_error'
+  end
 
   private
 

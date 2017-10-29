@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
+  before_action :create_customer
   helper_method :accounts, :transactions_for
 
   def index

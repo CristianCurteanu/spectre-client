@@ -11,6 +11,8 @@ class Login
                 :provider_code,
                 :credentials
 
+  validates :customer_id, :country_code, :provider_code, :credentials, presence: true
+
   def create_url
     'logins'
   end

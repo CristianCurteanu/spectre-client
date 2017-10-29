@@ -1,10 +1,11 @@
 language: ruby
 rvm:
-  - 2.2.3
+  - 2.3.4
 services:
   - postgresql
 
 before_script:
+  - rake pem:create
   - rails db:create db:migrate
 
 install:

@@ -19,9 +19,10 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params.merge!(current_user: current_user))
     if @customer.create
       current_user.added_new_customer
-      redirect_to root_path
+      redirect_to customers_index_path
     else
-      render :new
+      flash[:error] = 'Something went wrong during customer creation'
+      redirect_back(fallback_location: customers_index_path)
     end
   end
 
