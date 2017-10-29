@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rest-client'
-
 module Spectre
   class API
     EXPIRATION_TIME = 60
@@ -91,6 +89,7 @@ module Spectre
 
     def connection
       @connection ||= Faraday.new url: api_url do |faraday|
+        faraday.use :http_cache, store: Rails.cache
         faraday.adapter Faraday.default_adapter
       end
     end

@@ -4,6 +4,7 @@ namespace :pem do
   desc 'Generate a OpenSSL pem file'
   task create: :environment do
     if Dir["#{Rails.root}/*.pem"].empty?
+      system 'openssl genrsa -out private.pem 2048'
       system 'openssl rsa -pubout -in private.pem -out public.pem'
     end
   end

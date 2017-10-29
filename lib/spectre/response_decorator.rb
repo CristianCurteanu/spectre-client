@@ -11,7 +11,7 @@ module Spectre
     end
 
     def data
-      body.data
+      @data ||= body.data || []
     end
 
     def body

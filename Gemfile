@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+ruby '2.3.4'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
@@ -40,12 +41,14 @@ gem 'devise'
 gem 'dish'
 gem 'faker'
 gem 'faraday'
+gem 'faraday-http-cache'
 gem 'materialize-sass'
 gem 'slim-rails'
 
 group :test do
   gem 'airborne'
   gem 'database_cleaner'
+  gem 'rails-controller-testing'
   gem 'shoulda'
   gem 'webmock'
 end
@@ -54,6 +57,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug', platform: :mri
   gem 'rspec-rails', '~> 3.0'
+  gem 'simplecov'
 end
 
 group :development do
