@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   get 'home/index'
+  get 'providers/fields'
 
   namespace :customers do
     get :index

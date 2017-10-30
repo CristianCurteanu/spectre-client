@@ -22,7 +22,6 @@ module Transactions
     private
 
     def transactions
-      binding.pry
       @transactions ||= spectre.get('transactions').data
     end
   end

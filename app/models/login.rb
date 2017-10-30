@@ -11,7 +11,7 @@ class Login
                 :provider_code,
                 :credentials
 
-  validates :customer_id, :country_code, :provider_code, :credentials, presence: true
+  validates :customer_id, :country_code, :provider_code, presence: true
 
   def create_url
     'logins'
@@ -23,7 +23,7 @@ class Login
       country_code:  country_code,
       provider_code: provider_code,
       fetch_type:    'recent',
-      credentials:   credentials
+      credentials:   credentials || {}
     } }
   end
 end
