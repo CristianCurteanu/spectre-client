@@ -20,7 +20,7 @@ describe Login, type: :model do
   end
 
   it 'should have credentials' do
-    expect(Login.new(valid_attributes.except(:credentials))).not_to be_valid
+    expect(Login.new(valid_attributes.except(:credentials))).to be_valid
   end
 
   context '#create' do

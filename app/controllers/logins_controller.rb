@@ -63,8 +63,13 @@ class LoginsController < ApplicationController
   private
 
   def login_params
-    params.require(:login).permit(:customer_id, :country_code, :provider_code, :credentials).
-      merge!(credentials: login_credentials.permit(login_credentials.keys))
+    if params[:login][:credentials].nil?
+      params.require(:login).permit(:customer_id, :country_code, :provider_code)
+    else
+      params.require(:login).permit(:customer_id, :country_code, :provider_code, :credentials).
+        merge!(credentials: login_credentials.permit(login_credentials.keys))
+    end
+
   end
 
   def reconnect_params
